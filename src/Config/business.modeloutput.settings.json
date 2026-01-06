@@ -1,0 +1,9 @@
+{
+  "business.modeloutput.settings" :
+  {
+    "ModelOutputPath": "..\\data\\ModelOutput",
+    "InputPromptsPath": "..\\data\\InputPrompts",
+    "SystemPrompt": "..\\data\\SystemPrompts\\computer-historian.md",
+    "LargeLanguageModel": "openai/gpt-oss-120b"
+  }
+}

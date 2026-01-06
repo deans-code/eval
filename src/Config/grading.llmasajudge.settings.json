@@ -1,0 +1,7 @@
+{
+  "grading.llmasajudge.settings": {
+    "SystemPromptPath": "..\\data\\SystemPrompts\\grader-llmasajudge.md",
+    "Model": "openai/gpt-oss-120b",
+    "ExampleOutputsPath": "..\\data\\SampleOutput"
+  }
+}

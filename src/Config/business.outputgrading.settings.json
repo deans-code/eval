@@ -1,0 +1,8 @@
+{
+  "business.outputgrading.settings": {
+    "SentimentWeight": 0.2,
+    "MarkdownWeight": 0.2,
+    "KeywordWeight": 0.1,
+    "LlmAsAJudgeScoreWeight": 0.5
+  }
+}

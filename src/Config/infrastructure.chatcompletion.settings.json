@@ -1,0 +1,9 @@
+{
+  "infrastructure.chatcompletion.settings": {
+    "ChatCompletionApi": {
+      "Protocol": "http",
+      "Host": "localhost",
+      "Port": 1234
+    }
+  }
+}

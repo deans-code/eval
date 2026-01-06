@@ -1,0 +1,16 @@
+{
+  "grading.sentiment.settings": {
+    "SystemPrompt": "..\\data\\SystemPrompts\\grader-sentiment.md",
+    "Model": "openai/gpt-oss-120b",
+    "TargetSentimentScores": {
+      "Anger": 0.0,
+      "Fear": 0.0,
+      "Anticipation": 0.5,
+      "Trust": 0.8,
+      "Surprise": 0.3,
+      "Sadness": 0.0,
+      "Joy": 0.7,
+      "Disgust": 0.0    
+    }
+  }
+}

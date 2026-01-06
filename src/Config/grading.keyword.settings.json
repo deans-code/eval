@@ -1,0 +1,30 @@
+{
+  "grading.keyword.settings": {
+    "ExpectedKeywords": [
+      {
+        "Keyword": "processor",
+        "MinimumOccurrences": 1
+      },
+      {
+        "Keyword": "CPU",
+        "MinimumOccurrences": 1
+      },
+      {
+        "Keyword": "memory",
+        "MinimumOccurrences": 1
+      },
+      {
+        "Keyword": "RAM",
+        "MinimumOccurrences": 1
+      },
+      {
+        "Keyword": "storage",
+        "MinimumOccurrences": 1
+      },
+      {
+        "Keyword": "graphics",
+        "MinimumOccurrences": 1
+      }
+    ]
+  }
+}
