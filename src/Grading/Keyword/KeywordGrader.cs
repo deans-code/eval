@@ -27,12 +27,12 @@ public class KeywordGrader : IKeywordGrader
         return _lastGradeScore;
     }
 
-    async Task<(KeywordAnalysis analysis, double finalScore)> IKeywordGrader.GradeAsync(
+    async Task<(KeywordGraderResult analysis, double finalScore)> IKeywordGrader.GradeAsync(
         string modelOutputContent)
     {
         return await Task.Run(() =>
         {
-            var analysis = new KeywordAnalysis();
+            var analysis = new KeywordGraderResult();
 
             if (string.IsNullOrWhiteSpace(modelOutputContent))
             {
@@ -54,7 +54,7 @@ public class KeywordGrader : IKeywordGrader
                 string pattern = $@"\b{Regex.Escape(expectedKeyword.Keyword)}\b";
                 MatchCollection matches = Regex.Matches(modelOutputContent, pattern, RegexOptions.IgnoreCase);
 
-                var result = new KeywordResult
+                var result = new KeywordGraderResultItem
                 {
                     Keyword = expectedKeyword.Keyword,
                     ExpectedCount = expectedKeyword.MinimumOccurrences,
@@ -79,7 +79,7 @@ public class KeywordGrader : IKeywordGrader
 
             var logMessage = $"Keyword analysis results:\n  Keywords Met: {analysis.TotalKeywordsMet}/{analysis.TotalKeywords}\n";
             
-            foreach (KeywordResult? result in analysis.Results.Values.OrderBy(r => r.Keyword))
+            foreach (KeywordGraderResultItem? result in analysis.Results.Values.OrderBy(r => r.Keyword))
             {
                 string status = result.Met ? "Pass" : "Fail";
                 logMessage += $"  {status} - {result.Keyword}: {result.ActualCount} (minimum: {result.ExpectedCount})\n";

@@ -1,13 +1,13 @@
 namespace Eval.Grading.Keyword;
 
-public class KeywordAnalysis
+public class KeywordGraderResult
 {
-    public Dictionary<string, KeywordResult> Results { get; set; } = new();
+    public Dictionary<string, KeywordGraderResultItem> Results { get; set; } = new();
     public int TotalKeywordsMet { get; set; }
     public int TotalKeywords { get; set; }
 }
 
-public class KeywordResult
+public class KeywordGraderResultItem
 {
     public string Keyword { get; set; } = string.Empty;
     public int ExpectedCount { get; set; }

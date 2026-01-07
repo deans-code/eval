@@ -100,10 +100,10 @@ public sealed class OutputGrading : IOutputGrading
 
                 await Task.WhenAll(sentimentTask, markdownTask, keywordTask, llmAsAJudgeTask);
 
-                (SentimentScores? sentimentScores, double sentimentScore) = await sentimentTask;
-                (MarkdownValidation? markdownValidation, double markdownScore) = await markdownTask;
-                (KeywordAnalysis? keywordAnalysis, double keywordScore) = await keywordTask;
-                (LlmJudgmentResult? llmJudgmentResult, double llmAsAJudgeScore) = await llmAsAJudgeTask;
+                (SentimentGraderResult? sentimentScores, double sentimentScore) = await sentimentTask;
+                (MarkdownGraderResult? markdownValidation, double markdownScore) = await markdownTask;
+                (KeywordGraderResult? keywordAnalysis, double keywordScore) = await keywordTask;
+                (LlmAsAJudgeGraderResult? llmJudgmentResult, double llmAsAJudgeScore) = await llmAsAJudgeTask;
                                 
                 double finalScore = (sentimentScore * _sentimentWeight)
                     + (markdownScore * _markdownWeight)

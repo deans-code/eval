@@ -1,6 +1,6 @@
 namespace Eval.Grading.LlmAsAJudge;
 
-public sealed class LlmJudgmentResult
+public sealed class LlmAsAJudgeGraderResult
 {
     public bool IsValid { get; set; } = true;
     public List<string> Feedback { get; set; } = new();

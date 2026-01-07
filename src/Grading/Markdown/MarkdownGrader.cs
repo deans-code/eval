@@ -29,7 +29,7 @@ public class MarkdownGrader : IMarkdownGrader
         return _lastGradeScore;
     }
 
-    private void ValidateCodeBlocks(string content, MarkdownValidation validation)
+    private void ValidateCodeBlocks(string content, MarkdownGraderResult validation)
     {
         var openCodeBlocks = Regex.Matches(content, @"```");
         if (openCodeBlocks.Count % 2 != 0)
@@ -39,7 +39,7 @@ public class MarkdownGrader : IMarkdownGrader
         }
     }
 
-    private void ValidateLinks(string content, MatchCollection linkMatches, MarkdownValidation validation)
+    private void ValidateLinks(string content, MatchCollection linkMatches, MarkdownGraderResult validation)
     {
         foreach (Match link in linkMatches)
         {
@@ -51,7 +51,7 @@ public class MarkdownGrader : IMarkdownGrader
         }
     }
 
-    private void ValidateBoldMarkers(string content, MarkdownValidation validation)
+    private void ValidateBoldMarkers(string content, MarkdownGraderResult validation)
     {
         var boldDoubleAsterisk = Regex.Matches(content, @"\*\*");
         var boldDoubleUnderscore = Regex.Matches(content, @"__");
@@ -67,7 +67,7 @@ public class MarkdownGrader : IMarkdownGrader
         }
     }
 
-    private void ValidateItalicMarkers(string content, MarkdownValidation validation)
+    private void ValidateItalicMarkers(string content, MarkdownGraderResult validation)
     {
         var contentWithoutBold = Regex.Replace(content, @"\*\*|__", "");
         var italicAsterisk = Regex.Matches(contentWithoutBold, @"(?<!\*)\*(?!\*)");
@@ -84,7 +84,7 @@ public class MarkdownGrader : IMarkdownGrader
         }
     }
 
-    private void ValidateImages(MatchCollection imageMatches, MarkdownValidation validation)
+    private void ValidateImages(MatchCollection imageMatches, MarkdownGraderResult validation)
     {
         foreach (Match image in imageMatches)
         {
@@ -96,7 +96,7 @@ public class MarkdownGrader : IMarkdownGrader
         }
     }
 
-    private void ValidateTables(MatchCollection tableRows, MarkdownValidation validation)
+    private void ValidateTables(MatchCollection tableRows, MarkdownGraderResult validation)
     {
         if (tableRows.Count > 0)
         {
@@ -118,7 +118,7 @@ public class MarkdownGrader : IMarkdownGrader
         }
     }
 
-    private void ValidateReferenceLinkDefinitions(string content, MarkdownValidation validation)
+    private void ValidateReferenceLinkDefinitions(string content, MarkdownGraderResult validation)
     {
         var refLinkUsage = Regex.Matches(content, @"\[([^\]]+)\]\[([^\]]+)\]");
         var refLinkDefs = Regex.Matches(content, @"^\[([^\]]+)\]:\s*.+$", RegexOptions.Multiline);
@@ -134,7 +134,7 @@ public class MarkdownGrader : IMarkdownGrader
         }
     }
 
-    private void ValidateHtmlTags(string content, MarkdownValidation validation)
+    private void ValidateHtmlTags(string content, MarkdownGraderResult validation)
     {
         var htmlTagMatches = Regex.Matches(content, @"<(/?)(\w+)(?:\s[^>]*)?>", RegexOptions.IgnoreCase);
         var tagStack = new Stack<string>();
@@ -170,7 +170,7 @@ public class MarkdownGrader : IMarkdownGrader
         }
     }
 
-    private void ValidateHeadingHierarchy(string content, MarkdownValidation validation)
+    private void ValidateHeadingHierarchy(string content, MarkdownGraderResult validation)
     {
         var headings = Regex.Matches(content, @"^(#{1,6})\s", RegexOptions.Multiline);
         int? previousLevel = null;
@@ -187,7 +187,7 @@ public class MarkdownGrader : IMarkdownGrader
         }
     }
 
-    private int CountFeaturesUsed(MarkdownValidation validation, MatchCollection imageMatches, 
+    private int CountFeaturesUsed(MarkdownGraderResult validation, MatchCollection imageMatches, 
         MatchCollection tableRows, MatchCollection blockquotes, MatchCollection horizontalRules, 
         string content)
     {
@@ -217,12 +217,12 @@ public class MarkdownGrader : IMarkdownGrader
         return featuresUsed;
     }
 
-    async Task<(MarkdownValidation validation, double finalScore)> IMarkdownGrader.GradeAsync(
+    async Task<(MarkdownGraderResult validation, double finalScore)> IMarkdownGrader.GradeAsync(
         string modelOutputContent)
     {
         return await Task.Run(() =>
         {
-            var validation = new MarkdownValidation
+            var validation = new MarkdownGraderResult
             {
                 IsValid = true
             };

@@ -1,6 +1,6 @@
 namespace Eval.Grading.Markdown;
 
-public class MarkdownValidation
+public class MarkdownGraderResult
 {
     public bool IsValid { get; set; }
     public bool HasHeadings { get; set; }

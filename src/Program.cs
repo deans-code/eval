@@ -86,7 +86,7 @@ public sealed class Program
                     var gradingSentimentSettings = provider.GetRequiredService<GradingSentimentSettings>();
                     var logger = provider.GetRequiredService<IEvalLogger>();
                     
-                    var targetScores = new SentimentScores
+                    var targetScores = new SentimentGraderResult
                     {
                         Anger = gradingSentimentSettings.TargetSentimentScores.Anger,
                         Fear = gradingSentimentSettings.TargetSentimentScores.Fear,

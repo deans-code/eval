@@ -26,13 +26,13 @@ public sealed class LlmAsAJudgeGrader : ILlmAsAJudgeGrader
         _logger = logger;
     }
 
-    public async Task<(LlmJudgmentResult result, double finalScore)> GradeAsync(
+    public async Task<(LlmAsAJudgeGraderResult result, double finalScore)> GradeAsync(
         string modelOutputContent,
         string inputPromptContent,
         string modelOutputSystemPromptContent,
         IEnumerable<string> sampleOutputPaths)
     {
-        var result = new LlmJudgmentResult();
+        var result = new LlmAsAJudgeGraderResult();
         double finalScore = 0.0;
 
         string systemPrompt = await _evalFileAccess.LoadTextFileAsync(_systemPromptPath);

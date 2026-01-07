@@ -1,6 +1,6 @@
 namespace Eval.Grading.Sentiment;
 
-public class SentimentScores
+public class SentimentGraderResult
 {
     public double Anger { get; set; }
     public double Fear { get; set; }

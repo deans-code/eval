@@ -10,7 +10,7 @@ public class SentimentGrader : ISentimentGrader
     private readonly EvalFileAccess _evalFileAccess;
     private readonly IChatCompletionGeneration _chatCompletionGeneration;
     private readonly string _systemPromptPath;
-    private readonly SentimentScores _targetScores;
+    private readonly SentimentGraderResult _targetScores;
     private readonly string _model;
     private double _lastGradeScore = 0.0;
     private readonly IEvalLogger _logger;
@@ -19,7 +19,7 @@ public class SentimentGrader : ISentimentGrader
         EvalFileAccess evalFileAccess,
         IChatCompletionGeneration chatCompletionGeneration, 
         string systemPromptPath,
-        SentimentScores targetScores,
+        SentimentGraderResult targetScores,
         string model,
         IEvalLogger logger)    
     {
@@ -36,7 +36,7 @@ public class SentimentGrader : ISentimentGrader
         return _lastGradeScore;
     }
 
-    async Task<(SentimentScores scores, double finalScore)> ISentimentGrader.GradeAsync(
+    async Task<(SentimentGraderResult scores, double finalScore)> ISentimentGrader.GradeAsync(
         string modelOutputContent)
     {
         string systemPrompt = await _evalFileAccess.LoadTextFileAsync(_systemPromptPath);
@@ -53,7 +53,7 @@ public class SentimentGrader : ISentimentGrader
             throw new InvalidOperationException("Empty response from chat completion");
         }
 
-        SentimentScores? scores = JsonSerializer.Deserialize<SentimentScores>(jsonResponse);
+        SentimentGraderResult? scores = JsonSerializer.Deserialize<SentimentGraderResult>(jsonResponse);
 
         if (scores == null)
         {
