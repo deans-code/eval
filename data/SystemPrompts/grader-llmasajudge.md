@@ -95,11 +95,11 @@ Measures how easily the output can be understood, including organization, struct
 
 The format of your output MUST be as follows:
 
-<output_json_format>
+```json
 {
    "Accuracy" : 0.55,
    "Language" : 0.55,
    "Conciseness" : 0.55,
    "Clarity" : 0.55
 }
-</output_json_format>
+```
