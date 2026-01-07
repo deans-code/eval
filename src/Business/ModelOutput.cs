@@ -7,7 +7,7 @@ namespace Eval.Business;
 
 public sealed class ModelOutput : IModelOutput
 {    
-    private readonly EvalFileAccess _evalFileAccess;
+    private readonly IEvalFileAccess _evalFileAccess;
     private readonly IChatCompletionGeneration _chatCompletionGeneration;
     private readonly string _systemPromptPath;
     private readonly string _model;
@@ -15,7 +15,7 @@ public sealed class ModelOutput : IModelOutput
     private bool _disposed = false;
 
     public ModelOutput(
-        EvalFileAccess evalFileAccess,
+        IEvalFileAccess evalFileAccess,
         IChatCompletionGeneration chatCompletionGeneration,
         string systemPromptPath,
         string model,

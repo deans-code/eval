@@ -2,7 +2,7 @@ using Eval.Infrastructure.Exceptions;
 
 namespace Eval.Infrastructure;
 
-public sealed class EvalFileAccess
+public sealed class EvalFileAccess : IEvalFileAccess
 {    
     public async Task<Dictionary<string, string>> LoadAllTextFilesAsync(string dataDirectoryPath)
     {

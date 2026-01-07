@@ -76,12 +76,12 @@ public sealed class Program
                         settings.ChatCompletionApi.Port);
                 });
 
-                services.AddSingleton<EvalFileAccess>();
+                services.AddSingleton<IEvalFileAccess, EvalFileAccess>();
                 services.AddSingleton<IEvalLogger, EvalLogger>();
                 
                 services.AddSingleton<ISentimentGrader>(provider =>
                 {
-                    var evalFileAccess = provider.GetRequiredService<EvalFileAccess>();
+                    var evalFileAccess = provider.GetRequiredService<IEvalFileAccess>();
                     var chatCompletionGeneration = provider.GetRequiredService<IChatCompletionGeneration>();
                     var gradingSentimentSettings = provider.GetRequiredService<GradingSentimentSettings>();
                     var logger = provider.GetRequiredService<IEvalLogger>();
@@ -108,13 +108,11 @@ public sealed class Program
                 });
                 
                 services.AddSingleton<IMarkdownGrader>(provider =>
-                {
-                    var evalFileAccess = provider.GetRequiredService<EvalFileAccess>();
+                {                    
                     var gradingMarkdownSettings = provider.GetRequiredService<GradingMarkdownSettings>();
                     var logger = provider.GetRequiredService<IEvalLogger>();
                     
-                    return new MarkdownGrader(
-                        evalFileAccess, 
+                    return new MarkdownGrader(                        
                         gradingMarkdownSettings.ValidityWeight,
                         gradingMarkdownSettings.VarietyWeight,
                         logger);
@@ -122,7 +120,7 @@ public sealed class Program
                 
                 services.AddSingleton<IKeywordGrader>(provider =>
                 {
-                    var evalFileAccess = provider.GetRequiredService<EvalFileAccess>();
+                    var evalFileAccess = provider.GetRequiredService<IEvalFileAccess>();
                     var logger = provider.GetRequiredService<IEvalLogger>();
                     var gradingKeywordSettings = provider.GetRequiredService<GradingKeywordSettings>();
                     
@@ -131,7 +129,7 @@ public sealed class Program
                 
                 services.AddSingleton<ILlmAsAJudgeGrader>(provider =>
                 {
-                    var evalFileAccess = provider.GetRequiredService<EvalFileAccess>();
+                    var evalFileAccess = provider.GetRequiredService<IEvalFileAccess>();
                     var chatCompletionGeneration = provider.GetRequiredService<IChatCompletionGeneration>();
                     var gradingLlmAsAJudgeSettings = provider.GetRequiredService<GradingLlmAsAJudgeSettings>();
                     var logger = provider.GetRequiredService<IEvalLogger>();
@@ -146,13 +144,13 @@ public sealed class Program
                 
                 services.AddSingleton<IModelOutput>(provider =>
                 {
-                    var promptFileAccess = provider.GetRequiredService<EvalFileAccess>();
+                    var evalFileAccess = provider.GetRequiredService<IEvalFileAccess>();
                     var chatCompletionGeneration = provider.GetRequiredService<IChatCompletionGeneration>();
                     var businessModelOutputSettings = provider.GetRequiredService<BusinessModelOutputSettings>();
                     var logger = provider.GetRequiredService<IEvalLogger>();
                     
                     return new ModelOutput(
-                        promptFileAccess, 
+                        evalFileAccess, 
                         chatCompletionGeneration, 
                         businessModelOutputSettings.SystemPrompt,
                         businessModelOutputSettings.LargeLanguageModel,
@@ -161,7 +159,7 @@ public sealed class Program
 
                 services.AddSingleton<IOutputGrading>(provider =>
                 {
-                    var promptFileAccess = provider.GetRequiredService<EvalFileAccess>();
+                    var evalFileAccess = provider.GetRequiredService<IEvalFileAccess>();
                     var chatCompletionGeneration = provider.GetRequiredService<IChatCompletionGeneration>();
                     var sentimentGrader = provider.GetRequiredService<ISentimentGrader>();
                     var markdownGrader = provider.GetRequiredService<IMarkdownGrader>();
@@ -171,7 +169,7 @@ public sealed class Program
                     var logger = provider.GetRequiredService<IEvalLogger>();
                     
                     return new OutputGrading(
-                        promptFileAccess, 
+                        evalFileAccess, 
                         chatCompletionGeneration, 
                         sentimentGrader, 
                         markdownGrader,

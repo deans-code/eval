@@ -7,7 +7,7 @@ namespace Eval.Grading.Sentiment;
 
 public class SentimentGrader : ISentimentGrader
 {
-    private readonly EvalFileAccess _evalFileAccess;
+    private readonly IEvalFileAccess _evalFileAccess;
     private readonly IChatCompletionGeneration _chatCompletionGeneration;
     private readonly string _systemPromptPath;
     private readonly SentimentGraderResult _targetScores;
@@ -16,7 +16,7 @@ public class SentimentGrader : ISentimentGrader
     private readonly IEvalLogger _logger;
 
     public SentimentGrader(
-        EvalFileAccess evalFileAccess,
+        IEvalFileAccess evalFileAccess,
         IChatCompletionGeneration chatCompletionGeneration, 
         string systemPromptPath,
         SentimentGraderResult targetScores,

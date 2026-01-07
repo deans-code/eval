@@ -5,20 +5,17 @@ using Eval.Logging;
 namespace Eval.Grading.Markdown;
 
 public class MarkdownGrader : IMarkdownGrader
-{
-    private readonly EvalFileAccess _evalFileAccess;
+{    
     private readonly IEvalLogger _logger;
     private readonly double _validityWeight;
     private readonly double _varietyWeight;
     private double _lastGradeScore = 0.0;
 
-    public MarkdownGrader(
-        EvalFileAccess evalFileAccess,
+    public MarkdownGrader(        
         double validityWeight,
         double varietyWeight,
         IEvalLogger logger)
-    {
-        _evalFileAccess = evalFileAccess;
+    {        
         _validityWeight = validityWeight;
         _varietyWeight = varietyWeight;
         _logger = logger;

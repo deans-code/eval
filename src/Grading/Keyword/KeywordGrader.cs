@@ -7,13 +7,13 @@ namespace Eval.Grading.Keyword;
 
 public class KeywordGrader : IKeywordGrader
 {
-    private readonly EvalFileAccess _evalFileAccess;
+    private readonly IEvalFileAccess _evalFileAccess;
     private readonly IEvalLogger _logger;
     private readonly List<ExpectedKeyword> _expectedKeywords;
     private double _lastGradeScore = 0.0;
 
     public KeywordGrader(
-        EvalFileAccess evalFileAccess,
+        IEvalFileAccess evalFileAccess,
         IEvalLogger logger,
         List<ExpectedKeyword> expectedKeywords)
     {

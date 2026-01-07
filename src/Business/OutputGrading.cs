@@ -9,7 +9,7 @@ namespace Eval.Business;
 
 public sealed class OutputGrading : IOutputGrading
 {    
-    private readonly EvalFileAccess _evalFileAccess;
+    private readonly IEvalFileAccess _evalFileAccess;
     private readonly IChatCompletionGeneration _chatCompletionGeneration;
     private readonly IEvalLogger _logger;
     private readonly ISentimentGrader _sentimentGrader;
@@ -23,7 +23,7 @@ public sealed class OutputGrading : IOutputGrading
     private bool _disposed = false;
 
     public OutputGrading(
-        EvalFileAccess evalFileAccess,
+        IEvalFileAccess evalFileAccess,
         IChatCompletionGeneration chatCompletionGeneration,
         ISentimentGrader sentimentGrader,
         IMarkdownGrader markdownGrader,

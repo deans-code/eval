@@ -6,14 +6,14 @@ namespace Eval.Grading.LlmAsAJudge;
 
 public sealed class LlmAsAJudgeGrader : ILlmAsAJudgeGrader
 {
-    private readonly EvalFileAccess _evalFileAccess;
+    private readonly IEvalFileAccess _evalFileAccess;
     private readonly IChatCompletionGeneration _chatCompletionGeneration;
     private readonly IEvalLogger _logger;
     private readonly string _systemPromptPath;
     private readonly string _model;
 
     public LlmAsAJudgeGrader(
-        EvalFileAccess evalFileAccess,
+        IEvalFileAccess evalFileAccess,
         IChatCompletionGeneration chatCompletionGeneration,
         string systemPromptPath,
         string model,
