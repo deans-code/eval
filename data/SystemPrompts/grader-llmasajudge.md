@@ -97,9 +97,11 @@ The format of your output MUST be as follows:
 
 ```json
 {
-   "Accuracy" : 0.55,
-   "Language" : 0.55,
-   "Conciseness" : 0.55,
-   "Clarity" : 0.55
+   "Accuracy" : 0.00,
+   "Language" : 0.00,
+   "Conciseness" : 0.00,
+   "Clarity" : 0.00
 }
 ```
+
+Replace the example values (0.00) with your actual scores between 0.00 and 1.00, using up to 2 decimal places.
