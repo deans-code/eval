@@ -1,65 +1,111 @@
-You will analyse the sentiment of a given text and assign a score between 0 and 1 for each of the following basic emotions:
+﻿# Role and Objective
 
-- Anger
-- Fear
-- Anticipation
-- Trust
-- Surprise
-- Sadness
-- Joy
-- Disgust
+You will analyse the sentiment of a given text and assign a score between 0 and 1 for each of the following basic emotions based on Plutchik's wheel of emotions:
 
-The score range is as follows:
+- **Anger** - Irritation, frustration, rage, hostility
+- **Fear** - Anxiety, worry, terror, apprehension
+- **Anticipation** - Interest, expectation, vigilance
+- **Trust** - Acceptance, confidence, admiration
+- **Surprise** - Amazement, astonishment, distraction
+- **Sadness** - Grief, sorrow, pensiveness, gloom
+- **Joy** - Happiness, serenity, pleasure, contentment
+- **Disgust** - Loathing, aversion, revulsion, dislike
 
-0: Emotion is NOT expressed in the text.
-1: Emotion is FULLY expressed in the text.
+## Scoring Scale
 
-You can provide scores with up to 2 decimal places, to accurately rate the presence of the emotion within the text.
+| Score | Meaning | Description |
+|-------|---------|-------------|
+| 0.00 | Not present | Emotion is completely absent from the text |
+| 0.25 | Weakly present | Subtle hints or mild expression of the emotion |
+| 0.50 | Moderately present | Clearly identifiable but not dominant |
+| 0.75 | Strongly present | Prominent and frequently expressed |
+| 1.00 | Fully present | Intense, pervasive, and dominant throughout |
 
-Approach this task as follows:
+You can provide scores with up to 2 decimal places to accurately rate the presence of each emotion.
 
-1. Split the Text
- - Break the document into sentences or meaningful chunks.
+### Scoring Examples
 
-2. Identify Emotional Language
- - Detect words, phrases, and patterns associated with emotions.
+**Joy at 0.25:** "The project was completed on time." (Mild satisfaction implied)  
+**Joy at 0.50:** "We're pleased with the results and looking forward to the next phase."  
+**Joy at 0.75:** "This is fantastic news! We couldn't be happier with the outcome."  
+**Joy at 1.00:** "Absolutely thrilled! This is the best day ever! Pure euphoria!"
 
-3. Apply an Emotion Lexicon
- - Use a predefined emotion dictionary to classify emotions in each sentence or chunk.
- - Use NRC Emotion Lexicon (a.k.a. EmoLex).
+---
 
-4. Score Emotions
- - Assign numerical scores to each detected emotion based on strength or frequency.
+## Analysis Process
 
-5. Aggregate Emotion Scores
- - Combine scores across the document to calculate overall emotion intensity and dominant emotions.
+Follow these steps to ensure thorough and accurate emotion scoring:
 
-6. Interpret Results
- - Determine which emotions are most prominent and how strongly they are expressed in the document.
- - Apply scores to each emotion to convey your findings.
+### 1. Split the Text
+- Break the document into sentences or meaningful chunks
+- Consider paragraph-level emotional shifts
 
-When you have applied the scores, check your working:
+### 2. Identify Emotional Language
+- Detect words, phrases, and patterns associated with each emotion
+- Look for emotion-bearing verbs, adjectives, and exclamations
+- Consider context and intensity markers (very, extremely, slightly)
 
-1 - Did you break the document into meaningful sentences or chunks?
-2 - Did you detect words, phrases and patters associated with emotions?
-3 - Were you able to apply the NRC Emotion Lexicon (a.k.a. EmoLex)?
+### 3. Apply Emotion Analysis Principles
+- Use emotion analysis principles similar to the NRC Emotion Lexicon (EmoLex)
+- Consider both direct emotional expressions and implied emotions
+- Account for cultural and contextual nuances
 
-When you are happy with your review, provide the output using the following rules:
+### 4. Score Each Emotion
+- Assign numerical scores based on both:
+  - **Intensity**: How strongly the emotion is expressed when present
+  - **Frequency**: How often the emotion appears throughout the text
+- Weight intensity slightly higher than frequency
 
-- You MUST respond in JSON format with one score for each emotion.
-- Do NOT include any additional text outside the JSON object.
+### 5. Aggregate Emotion Scores
+- Combine scores across all chunks to calculate overall emotion presence
+- Normalize scores to ensure they reflect the document as a whole
+- Multiple emotions can have high scores simultaneously
 
-The JSON format of your output MUST be as follows:
+### 6. Handle Edge Cases
+- **Neutral/Factual text**: All scores should be low (0.00-0.20)
+- **Mixed emotions**: Multiple high scores are acceptable and often expected
+- **Sarcasm/Irony**: Consider the intended emotional tone, not just literal words
+- **Very short texts**: Score based on available content; don't assume missing emotions
 
-<output_json_format>
+---
+
+## Quality Checks
+
+Before finalizing your scores, verify:
+
+1.  Did you analyze the entire text systematically?
+2.  Did you detect emotional words, phrases, and patterns?
+3.  Did you consider both intensity and frequency?
+4.  Are your scores calibrated to the scale (0.00-1.00)?
+5.  Do multiple emotions reflect the text's complexity if applicable?
+
+---
+
+## Output Format Requirements
+
+**CRITICAL:** You **MUST** respond in JSON format with one score for each emotion.
+
+**Do NOT include:**
+- Any explanatory text before or after the JSON
+- Reasoning or justification
+- Commentary about your analysis
+- Markdown formatting or code block markers
+
+**Output only the raw JSON object.**
+
+### JSON Output Format
+
+```json
 {
-   "Anger" : 0.55,
-   "Fear" : 0.55,
-   "Anticipation" : 0.55,
-   "Trust" : 0.55,
-   "Surprise" : 0.55,
-   "Sadness" : 0.55,
-   "Joy" : 0.55,
-   "Disgust" : 0.55
+  "Anger": 0.00,
+  "Fear": 0.00,
+  "Anticipation": 0.00,
+  "Trust": 0.00,
+  "Surprise": 0.00,
+  "Sadness": 0.00,
+  "Joy": 0.00,
+  "Disgust": 0.00
 }
-</output_json_format>
+```
+
+Replace the example values (0.00) with your actual scores between 0.00 and 1.00, using up to 2 decimal places.
